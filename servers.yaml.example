@@ -1,0 +1,7 @@
+servers:
+  foo:
+    hostname: "foo"
+    localip: 192.168.1.1
+  bar:
+    hostname: "bar"
+    localip: 192.168.1.2
