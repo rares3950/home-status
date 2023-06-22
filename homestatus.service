@@ -1,0 +1,12 @@
+[Unit]
+Description=Home Status: a dead simple uptime web monitor.
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/home-status
+ExecStart=/home/ubuntu/home-status/env/bin/gunicorn --bind 0.0.0.0:2020 wsgi:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

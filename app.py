@@ -6,8 +6,12 @@ except ImportError:
     from yaml import Loader, Dumper
 import os
 
-f = open("servers.yaml")
-servers = load(f, Loader=Loader)
+try:
+    f = open("servers.yaml")
+    servers = load(f, Loader=Loader)
+except:
+    print("Configuration not found. Are you sure you configured the service according to the handbook?")
+    exit()
 
 def pingIP(ip):
     response = os.system("ping -c 1 " + ip)
