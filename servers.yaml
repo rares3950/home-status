@@ -2,6 +2,6 @@ servers:
   openmediavault:
     hostname: "openmediavault"
     localip: 192.168.1.10
-    lastping:
-      - success: false
-      - time: 0
+  test:
+    hostname: "foo"
+    localip: 192.168.1.111

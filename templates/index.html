@@ -3,13 +3,58 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Hello Bulma!</title>
+        <title>home-status</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                function pingServer(identifier) {
+                    $.get('/ping/' + identifier, function(response) {
+                        if (response.status === 'ok') {
+                            $('#' + identifier).addClass('has-text-success').text('Server is up');
+                        } else {
+                            $('#' + identifier).addClass('has-text-danger').text('Server is down');
+                        }
+                    });
+                }
+
+                function pingAllServers() {
+                    {% for server in servers %}
+                        pingServer('{{ server }}');
+                    {% endfor %}
+                }
+
+                pingAllServers();
+                setInterval(pingAllServers, 10000); // Refresh status every 5 seconds
+            });
+        </script>
+        <style>
+            .status-text {
+                margin-top: 10px;
+                font-weight: bold;
+            }
+
+            .has-text-success {
+                color: green;
+            }
+
+            .has-text-danger {
+                color: red;
+            }
+        </style>
     </head>
     <body>
-        <div class="container pt-4">
-            <div class="box">
-                <h1 class="title">Server Status</h1>
+        <div class="container pt-4" style="max-width: 48rem;">
+            <h1 class="title">Server Status</h1>
+            <div class="columns is-multiline">
+                {% for server in servers %}
+                    <div class="column is-4">
+                        <div class="box">
+                            <p>{{ server }}</p>
+                            <p id="{{ server }}" class="status-text">Loading...</p>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </body>
