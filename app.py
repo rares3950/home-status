@@ -9,6 +9,7 @@ import os
 try:
     script_dir = os.path.dirname(os.path.realpath(__file__))
     config_path = os.path.join(script_dir, "servers.yaml")
+    print("loading from " + config_path)
 
     with open(config_path, "r") as f:
         servers = load(f, Loader=Loader)
