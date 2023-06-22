@@ -7,9 +7,12 @@ except ImportError:
 import os
 
 try:
-    f = open("servers.yaml")
-    servers = load(f, Loader=Loader)
-except:
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    config_path = os.path.join(script_dir, "servers.yaml")
+
+    with open(config_path, "r") as f:
+        servers = load(f, Loader=Loader)
+except FileNotFoundError:
     print("Configuration not found. Are you sure you configured the service according to the handbook?")
     exit()
 
